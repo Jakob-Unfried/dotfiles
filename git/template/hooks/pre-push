@@ -1,0 +1,81 @@
+#!/bin/bash
+
+STOP_PUSH=false
+
+# Check for forbidden patterns in the patch / diff of any of the commits to be pushed
+# ======================================================================================
+
+# "@{push}" is the target of "git push" and "@" is HEAD 
+# Filter only added (A), copied (C), modified (M) files
+for file in $(git diff --name-only --diff-filter=ACM @{push} @); do
+  # note: only the last grep should be quiet (-q)!
+  #       the first one should return the matches, the last only the exit code
+  if git show :0:"$file" | ggrep -E "^\+" | ggrep -Eq "^[<>=]{7}"; then
+    echo -e "\033[1;31mLeftover conflict markers in $file\033[0m"
+    STOP_PUSH=true
+  fi
+  if git diff @{push} @ "$file" | ggrep -E "^\+" | ggrep -Eq "FIXME"; then
+    echo -e "\033[1;31mFIXME marker in $file\033[0m"
+    STOP_PUSH=true
+  fi
+  if git diff @{push} @ "$file" | ggrep -E "^\+" | ggrep -Eq "breakpoint()|set_trace()"; then
+    echo -e "\033[1;31mDebugging breakpoint in $file\033[0m"
+    STOP_COMMIT=true
+  fi
+done
+
+# Check for forbidden patterns in the commit messages
+# ======================================================================================
+
+for hash in $(git rev-list @{push}..@); do
+  MESSAGE=$(git log -n 1 --pretty=format:%s "$hash")
+  SHORTHASH=$(git log -n 1 --pretty=format:%h "$hash")
+  if echo $MESSAGE | ggrep -Eq "WIP|FIXME"; then
+    echo -e "\033[1;31mWIP/FIXME found in commit message of $SHORTHASH\033[0m"
+    STOP_PUSH=true
+  fi
+done
+
+# Python specific stuff
+# ======================================================================================
+
+if [ -f pyproject.toml ]
+then
+  # Run custom linting script
+  if [ ! -f tests/linting/python_linting.py ]
+  then
+    echo "Custom linting script not found."
+  elif python tests/linting/python_linting.py &> /dev/null
+  then
+    echo "Custom linting passed"
+  else
+    python tests/linting/python_linting.py
+    STOP_COMMIT=true
+  fi
+
+  # Run flake8 linter
+  if python -m flake8 . &> /dev/null
+  then
+    echo "flake8 passed"
+  else
+    python -m flake8 .
+    STOP_COMMIT=true
+  fi
+
+  # Run pytest
+  if pytest -m "not slow"
+  then
+    echo "Pytest passed"
+  else
+    STOP_PUSH=true
+    echo ""
+  fi
+fi
+
+# If there was any error then stop push
+# ======================================================================================
+
+if $STOP_PUSH; then
+  echo "Push blocked. Use '--no-verify' to circumvent the hook."
+  exit 1
+fi
