@@ -9,3 +9,10 @@ if [[ ! -n "$ZSHRUN" ]]; then
 fi
 local -a precmd_functions
 precmd_functions=( precmd_prompt )
+
+# Key bindings
+#-------------------------------------------------------------------------------
+# clear screen on ctrl+L
+clear-terminal() { tput reset; zle redisplay; }
+zle -N clear-terminal
+bindkey '^L' clear-terminal
