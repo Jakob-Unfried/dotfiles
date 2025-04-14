@@ -11,11 +11,13 @@ else [[ ! -d $TMPDIR ]]
     exit 1
 fi
 mv ~/.gitconfig $TMPDIR/.gitconfig
+mv ~/.pdbrc $TMPDIR/.pdbrc
 echo "Moved old dotfiles to ~/$TMPDIR"
 
 # symlink dotfiles to the files in this repo
 # -----------------------------------------------------
 ln -sf ~/.dotfiles/git/config ~/.gitconfig
+ln -sf ~/.dotfiles/python/pdbrc ~/.pdbrc
 
 # append to shell configs
 # -----------------------------------------------------

@@ -1,0 +1,6 @@
+alias which_pytest import os; os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split(' ')[0]
+alias wpt which_pytest
+print('Run `wpt` to see the current pytest test case')
+
+alias emb from IPython import embed; embed(colors='neutral')
+print('Run `emb` to embed an IPython console')
