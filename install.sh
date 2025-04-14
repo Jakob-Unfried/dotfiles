@@ -24,16 +24,22 @@ BASH_LINE="source ~/.dotfiles/shell_setup/extra_bashrc"
 if grep -q "$BASH_LINE" ~/.bash_profile; then
     echo "~/.bash_profile already sources from dotfiles. Skipped."
 else
-    echo "# Added by ~/.dotfiles/install.sh :" >> ~/.bash_profile
+    echo "" >> ~/.bash_profile
+    echo "# >>> dotfiles >>>" >> ~/.bash_profile
+    echo "# !! Contents within this block are manged by ~/.dotfiles/install.sh" >> ~/.bash_profile
     echo "$BASH_LINE" >> ~/.bash_profile
+    echo "# <<< dotfiles <<<" >> ~/.bash_profile
 fi
 # zsh
-ZSH_LINE="source ~/.dotfiles/shell_setup/extra_bashrc"
+ZSH_LINE="source ~/.dotfiles/shell_setup/extra_zshrc"
 if grep -q "$ZSH_LINE" ~/.zshrc; then
     echo "~/.zshrc already sources from dotfiles. Skipped."
 else
-    echo "# Added by ~/.dotfiles/install.sh :" >> ~/.zshrc
+    echo "" >> ~/.zshrc
+    echo "# >>> dotfiles >>>" >> ~/.zshrc
+    echo "# !! Contents within this block are manged by ~/.dotfiles/install.sh" >> ~/.zshrc
     echo "$ZSH_LINE" >> ~/.zshrc
+    echo "# <<< dotfiles <<<" >> ~/.zshrc
 fi
 
 echo
