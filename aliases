@@ -14,42 +14,68 @@ alias lock="open /System/Library/CoreServices/ScreenSaverEngine.app"
 # -----------------------------------------------------
 # Git
 # -----------------------------------------------------
-gfs() {
-  # fetch, show status, show stash
-  git fetch
-  git status -s -b -uall
-  echo "$(tput setaf 1)$(git --no-pager stash list --format='%gd (%cr): %gs')$(tput sgr 0)"
-}
-gst() {
-  # fetch, show status, show stash
-  git status -s -b -uall
-  echo "$(tput setaf 1)$(git --no-pager stash list --format='%gd (%cr): %gs')$(tput sgr 0)"
-}
-gpb() {
-  # push the branch to remote
-  git push -u origin $(git branch --show-current) "$@"
-}
-alias gnb="git switch -c"
-alias gh="git hist"
-alias gaac="git add --all; git commit --verbose"
-alias gcnv="git commit --verbose --no-verify"
+# misc
+alias g='git'
+# rebasing
 gri() {
   git rebase -i "HEAD~$1"
 }
-alias gstash="git stash -u"
-stash() {
-  if [ $# -eq 0 ]
-  then
-    git stash -u
-  elif [ "$1" = "pop" ]
-  then
-    echo "Should not name stash entry 'pop'. Use the 'pop' alias instead?"
-    return
-  else
-    git stash push -u -m $1
-  fi
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbi='git rebase --interactive'
+alias grbo='git rebase --onto'
+alias grbs='git rebase --skip'
+# status / diff / ...
+gst() {
+  git status -s -uall
+  echo "$(tput setaf 1)$(git --no-pager stash list --format='%gd (%cr): %gs')$(tput sgr 0)"
 }
-alias pop="git stash pop"
+gstat() {
+  git status -b -uall
+  echo "$(tput setaf 1)$(git --no-pager stash list --format='%gd (%cr): %gs')$(tput sgr 0)"
+}
+alias gfs='git fetch; gst'
+alias gd='git diff'
+alias gds='git diff --staged'
+# pull / push / fetch
+alias gf='git fetch'
+alias gl='git pull'
+alias gp='git push'
+alias gpb='git push -u origin $(git branch --show-current)'
+alias gpd='git push --dry-run'
+# staging / commitng
+alias ga='git add'
+alias gaa='git add --all'
+alias gc='git commit --verbose'
+alias gc!='git commit --verbose --amend'
+alias gca='git commit --verbose --all'
+alias gca!='git commit --verbose --all --amend'
+alias gaac="git add --all; git commit --verbose"
+alias gaac!="git add --all; git commit --verbose --amend"
+alias gcnv="git commit --verbose --no-verify"
+# branches
+alias gb='git branch'
+alias gbd='git branch --delete'
+alias gbD='git branch --delete --force'
+alias gnb="git switch -c"
+alias gcp='git cherry-pick'
+# stash
+alias gstash="git stash push -u -m $1"
+alias gpop="git stash pop"
+# logs
+alias gh="git hist"
+alias glgg='git log --graph'
+alias glgga='git log --graph --decorate --all'
+alias glgm='git log --graph --max-count=10'
+alias glods='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
+alias glod='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"'
+alias glola='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
+alias glols='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat'
+alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"'
+alias glo='git log --oneline --decorate'
+alias glog='git log --oneline --decorate --graph'
+alias gloga='git log --oneline --decorate --graph --all'
 
 
 # -----------------------------------------------------
@@ -72,26 +98,7 @@ alias ipdb="ipython --pdb"
 # -----------------------------------------------------
 # Dev environments
 # -----------------------------------------------------
-tpdev() {
-  conda activate tenpy312dev
-  cd ~/tenpy/development
-  gfs
-}
-
-cytendev() {
-  conda activate cyten312dev
-  cd ~/tenpy/cyten
-  gfs
-}
-
-qutepydev() {
-  conda activate qutepy312
-  cd ~/postdoc/QuTePy/qutepy
-  gfs
-}
-
-diffpepsdev() {
-  conda activate py312diffpeps
-  cd ~/postdoc/DiffPEPS/diffpeps
-  gfs
-}
+alias tpdev='conda activate tenpy312dev; cd ~/tenpy/development; gfs'
+alias cytendev='conda activate cyten312dev; cd ~/tenpy/cyten; gfs'
+alias qutepydev='conda activate qutepy312; cd ~/postdoc/QuTePy/qutepy, gfs'
+alias diffpepsdev='conda activate py312diffpeps; cd ~/postdoc/DiffPEPS/diffpeps; gfs'
