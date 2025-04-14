@@ -1,14 +1,15 @@
 #!/bin/zsh
 
-source ~/.dotfiles/aliases
-
-# Source the prompt
+# Source other files from this repo
 #-------------------------------------------------------------------------------
+source ~/.dotfiles/aliases
+# source the prompt
 if [[ ! -n "$ZSHRUN" ]]; then
     source ~/.dotfiles/shell_setup/zsh_prompt > /dev/null 2>&1
 fi
 local -a precmd_functions
 precmd_functions=( precmd_prompt )
+
 
 # Key bindings
 #-------------------------------------------------------------------------------
@@ -16,3 +17,36 @@ precmd_functions=( precmd_prompt )
 clear-terminal() { tput reset; zle redisplay; }
 zle -N clear-terminal
 bindkey '^L' clear-terminal
+
+
+# zsh options
+#-------------------------------------------------------------------------------
+# Prevents aliases on the command line from being internally substituted before
+# completion is attempted. The effect is to make the alias a distinct command
+# for completion purposes.
+setopt  complete_aliases
+# Treat the #, ~ and ^ characters as part of patterns for filename
+# generation, etc.  (An initial unquoted `~' always produces named directory
+# expansion.)
+setopt  extended_glob
+# When listing files that are possible completions, show the type of each file
+# with a trailing identifying mark.
+setopt  list_types
+# Append a trailing / to all directory names resulting from filename
+# generation (globbing).
+setopt  mark_dirs
+
+
+# Modify coloring on ls command
+#-------------------------------------------------------------------------------
+export LSCOLORS=gxfxcxdxbxegedabagacad
+
+
+# Tab completion
+#-------------------------------------------------------------------------------
+autoload -U compinit
+compinit -C
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-colors "$LS_COLORS"
+zstyle -e ':completion:*:(ssh|scp|sshfs|ping|telnet|nc|rsync):*' hosts '
+    reply=( ${=${${(M)${(f)"$(<~/.ssh/config)"}:#Host*}#Host }:#*\**} )'
