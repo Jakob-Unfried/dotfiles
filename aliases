@@ -1,0 +1,97 @@
+
+
+# -----------------------------------------------------
+# Misc aliases
+# -----------------------------------------------------
+alias te="open -a TextEdit"
+alias textedit="open -a TextEdit"
+alias preview="open -a Preview"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias finder="open -a Finder"
+alias lock="open /System/Library/CoreServices/ScreenSaverEngine.app"
+
+
+# -----------------------------------------------------
+# Git
+# -----------------------------------------------------
+gfs() {
+  # fetch, show status, show stash
+  git fetch
+  git status -s -b -uall
+  echo "$(tput setaf 1)$(git --no-pager stash list --format='%gd (%cr): %gs')$(tput sgr 0)"
+}
+gst() {
+  # fetch, show status, show stash
+  git status -s -b -uall
+  echo "$(tput setaf 1)$(git --no-pager stash list --format='%gd (%cr): %gs')$(tput sgr 0)"
+}
+gpb() {
+  # push the branch to remote
+  git push -u origin $(git branch --show-current) "$@"
+}
+alias gnb="git switch -c"
+alias gh="git hist"
+alias gaac="git add --all; git commit --verbose"
+alias gcnv="git commit --verbose --no-verify"
+gri() {
+  git rebase -i "HEAD~$1"
+}
+alias gstash="git stash -u"
+stash() {
+  if [ $# -eq 0 ]
+  then
+    git stash -u
+  elif [ "$1" = "pop" ]
+  then
+    echo "Should not name stash entry 'pop'. Use the 'pop' alias instead?"
+    return
+  else
+    git stash push -u -m $1
+  fi
+}
+alias pop="git stash pop"
+
+
+# -----------------------------------------------------
+# Python
+# -----------------------------------------------------
+alias p="python"
+alias ip="ipython"
+alias jl="jupyter lab"
+alias pt="pytest -m \"not slow\""
+alias ptdb="pytest -x --pdb --pdbcls=IPython.terminal.debugger:Pdb"
+alias coa="conda activate"
+alias cod="conda deactivate"
+alias coi="conda install"
+alias coe="conda info --envs"
+alias lint="python -m flake8 && python tests/linting/python_linting.py -q"
+alias pdb="python -m pdb -c continue"
+alias ipdb="ipython --pdb"
+
+
+# -----------------------------------------------------
+# Dev environments
+# -----------------------------------------------------
+tpdev() {
+  conda activate tenpy312dev
+  cd ~/tenpy/development
+  gfs
+}
+
+cytendev() {
+  conda activate cyten312dev
+  cd ~/tenpy/cyten
+  gfs
+}
+
+qutepydev() {
+  conda activate qutepy312
+  cd ~/postdoc/QuTePy/qutepy
+  gfs
+}
+
+diffpepsdev() {
+  conda activate py312diffpeps
+  cd ~/postdoc/DiffPEPS/diffpeps
+  gfs
+}
