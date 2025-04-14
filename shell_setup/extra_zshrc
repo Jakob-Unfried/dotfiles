@@ -1,1 +1,11 @@
+#!/bin/zsh
+
 source ~/.dotfiles/aliases
+
+# Source the prompt
+#-------------------------------------------------------------------------------
+if [[ ! -n "$ZSHRUN" ]]; then
+    source ~/.dotfiles/shell_setup/zsh_prompt > /dev/null 2>&1
+fi
+local -a precmd_functions
+precmd_functions=( precmd_prompt )
