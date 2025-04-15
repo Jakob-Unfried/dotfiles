@@ -2,6 +2,11 @@
 
 source ~/.dotfiles/shell_setup/generic_shell_config
 
+
+# zsh specific aliases
+#-------------------------------------------------------------------------------
+alias src='source ~/.zshrc'
+
 # Source the promt
 #-------------------------------------------------------------------------------
 if [[ ! -n "$ZSHRUN" ]]; then
