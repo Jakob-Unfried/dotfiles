@@ -11,6 +11,14 @@ local -a precmd_functions
 precmd_functions=( precmd_prompt )
 
 
+# Allow VS Code (or others) to call a command during shell init
+#-------------------------------------------------------------------------------
+if [[ -n $ZSH_INIT_COMMAND ]]; then
+    echo "Running: $ZSH_INIT_COMMAND"
+    eval "$ZSH_INIT_COMMAND"
+fi
+
+
 # Key bindings
 #-------------------------------------------------------------------------------
 # clear screen on ctrl+L
