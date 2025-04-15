@@ -36,7 +36,7 @@ local -A pr_com            # Associative array
 local -a prompt_left_lines # Array parameters
 
 zstyle ":pr_jrock:" mode full
-zstyle ':pr_jrock:*' hooks pwd usr vcs venv npm jobs prompt
+zstyle ':pr_jrock:*' hooks pwd usr vcs venv conda npm jobs prompt
 zstyle ':pr_jrock:*' pwd "%~"
 
 # Set vcs_info options
@@ -88,7 +88,7 @@ function pr_run_hooks() {
 # ├──(master [origin/master ] Unstaged)
 # └───>
 function +pr-mode-full() {
-    local i info_line_width return_status_width filler venv_shim npm_shim
+    local i info_line_width return_status_width filler venv_shim conda_shim npm_shim
 
     infoline=( ${pr_com[pwd]} ${pr_com[usr]} )
 
@@ -119,13 +119,26 @@ function +pr-mode-full() {
         venv_shim+=1 # Shim the filler to take up the entire width of the prompt
     fi
 
+    # If we are in a conda environment, we want to display that in the info line
+    [[ -n ${pr_com[conda]} ]] && infoline[1]=(
+        ${infoline[1]}
+        "${cyan} c${gray}(${pr_com[conda]}${gray})${reset}"
+    )
+
+    # The prompt was not taking up the full width of the terminal when in a conda env
+    # If we are in a conda env then we add a one character shim to the width of the filler
+    conda_shim=0
+    if [[ -n ${pr_com[conda]} ]]; then
+        conda_shim+=1 # Shim the filler to take up the entire width of the prompt
+    fi
+
     # Full-width filler; search/replace color wraps to find real text width
     info_line_width=${(S)infoline//\%\{*\%\}} # search-and-replace color escapes
     info_line_width=${#${(%)info_line_width}} # expand all escapes and count the chars
     return_status_width=3 # We will take up three spaces to display the return code (✔)
 
     # Set the text string that will be used to fill the width of the terminal filler
-    filler="${gray}${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim))::─:)}${reset}"
+    filler="${gray}${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim + $conda_shim))::─:)}${reset}"
     infoline[-1]=( ${filler} ${infoline[-1]} )
 
     # --------------------------
@@ -183,6 +196,19 @@ function +pr-venv() {
     )
 
     pr_com[venv]=${(j::)v_venv}
+}
+
+# Show conda information
+function +pr-conda() {
+    local -a v_conda
+
+    [[ -n ${CONDA_DEFAULT_ENV} ]] && v_conda=(
+        ${cyan}
+        ${CONDA_DEFAULT_ENV}
+        ${reset}
+    )
+
+    pr_com[conda]=${(j::)v_conda}
 }
 
 # Show npm information
