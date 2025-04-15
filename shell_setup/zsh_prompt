@@ -1,15 +1,5 @@
-#===============================================================================
-#
-#          FILE: .zsh_prompt
-#
-#        SOURCE: https://github.com/mattjmorrison/dotfiles/blob/master/zsh/zsh_prompt
-#
-#         USAGE: Sourced automatically in .zshrc
-#
-#   DESCRIPTION: In my opinion which I respect very much this may be one of the
-#                best zsh prompts on the planet.
-#
-#===============================================================================
+# Author: Jakob Unfried
+# Modified From: https://github.com/mattjmorrison/dotfiles/blob/master/zsh/zsh_prompt
 
 autoload -U colors && colors
 autoload -U promptinit

@@ -48,6 +48,18 @@ setopt  list_types
 # Append a trailing / to all directory names resulting from filename
 # generation (globbing).
 setopt  mark_dirs
+# This  option  both  imports new commands from the history file, and also
+# causes your typed commands to be appended to the history file
+setopt  share_history
+
+
+# History settings
+#-------------------------------------------------------------------------------
+HISTFILE=$HOME/.zsh_history
+HISTFILESIZE=65536
+HISTSIZE=4096
+SAVEHIST=4096
+REPORTTIME=60       # Report time statistics for progs that take more than a minute to run
 
 
 # Modify coloring on ls command
