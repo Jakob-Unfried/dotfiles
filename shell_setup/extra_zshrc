@@ -1,9 +1,9 @@
 #!/bin/zsh
 
-# Source other files from this repo
+source ~/.dotfiles/shell_setup/generic_shell_config
+
+# Source the promt
 #-------------------------------------------------------------------------------
-source ~/.dotfiles/aliases
-# source the prompt
 if [[ ! -n "$ZSHRUN" ]]; then
     source ~/.dotfiles/shell_setup/zsh_prompt > /dev/null 2>&1
 fi

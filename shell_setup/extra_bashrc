@@ -1,1 +1,3 @@
-source ~/.dotfiles/aliases
+#!/bin/bash
+
+source ~/.dotfiles/shell_setup/generic_shell_config

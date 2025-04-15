@@ -122,7 +122,7 @@ function +pr-mode-full() {
     # If we are in a conda environment, we want to display that in the info line
     [[ -n ${pr_com[conda]} ]] && infoline[1]=(
         ${infoline[1]}
-        "${cyan} c${gray}(${pr_com[conda]}${gray})${reset}"
+        "${blue} c${gray}(${pr_com[conda]}${gray})${reset}"
     )
 
     # The prompt was not taking up the full width of the terminal when in a conda env
@@ -203,7 +203,7 @@ function +pr-conda() {
     local -a v_conda
 
     [[ -n ${CONDA_DEFAULT_ENV} ]] && v_conda=(
-        ${cyan}
+        ${blue}
         ${CONDA_DEFAULT_ENV}
         ${reset}
     )
