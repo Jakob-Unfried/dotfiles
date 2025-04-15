@@ -15,6 +15,9 @@ alias ll="ls -lah"
 # -----------------------------------------------------
 # Git
 # -----------------------------------------------------
+# jokes
+alias yeet='git push'
+alias yoink='git pull'
 # misc
 alias g='git'
 # rebasing
