@@ -94,6 +94,7 @@ function +pr-mode-full() {
         ${infoline[1]}
         "${hostcolor} h${gray}(${hostcolor}${USER}@${barehost}${gray})${reset}"
     )
+    hostshim=1
 
     # If we are in a directory that has a node_modules subdirectory we want to
     # display that on the info line
@@ -104,10 +105,10 @@ function +pr-mode-full() {
 
     # The prompt was not taking up the full width of the terminal when displaying npm info
     # So if we are in a npm directory then we add a one character shim to the width of the filler
-     npm_shim=0
-     if [[ -n ${pr_com[npm]} ]]; then
-         npm_shim+=1
-     fi
+    npm_shim=0
+    if [[ -n ${pr_com[npm]} ]]; then
+        npm_shim+=1
+    fi
 
     # If we are in a virtualenv we want to display that on the info line
     [[ -n ${pr_com[venv]} ]] && infoline[1]=(
@@ -141,7 +142,7 @@ function +pr-mode-full() {
     return_status_width=3 # We will take up three spaces to display the return code (✔)
 
     # Set the text string that will be used to fill the width of the terminal filler
-    filler="${gray}${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim + $conda_shim))::─:)}${reset}"
+    filler="${gray}${(l:$(( $COLUMNS - $info_line_width - $return_status_width + $venv_shim + $npm_shim + $conda_shim + $hostshim))::─:)}${reset}"
     infoline[-1]=( ${filler} ${infoline[-1]} )
 
     # --------------------------
