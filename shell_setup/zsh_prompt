@@ -205,7 +205,7 @@ function +pr-venv() {
 function +pr-conda() {
     local -a v_conda
 
-    [[ -n ${CONDA_DEFAULT_ENV} ]] && v_conda=(
+    [[ -n ${CONDA_DEFAULT_ENV} ]] && [[ ${CONDA_DEFAULT_ENV} != 'base' ]] && v_conda=(
         ${blue}
         ${CONDA_DEFAULT_ENV}
         ${reset}
