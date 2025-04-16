@@ -7,6 +7,7 @@ source ~/.dotfiles/aliases
 
 # Check if the repo is behind
 #-------------------------------------------------------------------------------
+git -C "$HOME/.dotfiles" fetch
 if git -C "$HOME/.dotfiles" status -sb | grep -Eq "behind"; then
     echo
     echo "\e[0;31m~/.dotfiles repo is behind upstream\e[0m"
