@@ -13,12 +13,13 @@ for color in {000..255}; do
     BG[$color]="%{[48;5;${color}m%}"
 done
 
-local reset white gray green red yellow blue cyan magenta black
+local reset white gray green red orange yellow blue cyan magenta black
 reset="%{${reset_color}%}"
 gray="%{$FG[245]%}"
 green="%{$FG[040]%}"
 red="%{$FG[196]%}"
-yellow="%{$FG[003]%}"
+orange="%{$FG[208]%}"
+yellow="%{$FG[226]%}"
 cyan="%{$FG[006]%}"
 blue="%{$FG[004]%}"
 
@@ -81,6 +82,18 @@ function +pr-mode-full() {
     local i info_line_width return_status_width filler venv_shim conda_shim npm_shim
 
     infoline=( ${pr_com[pwd]} ${pr_com[usr]} )
+
+    # Add the user and host
+    if [[ $HOST == *.local ]]; then
+        hostcolor="${gray}"
+    else
+        hostcolor="${orange}"
+    fi
+    barehost="${${HOST}%.local}"
+    infoline[1]=(
+        ${infoline[1]}
+        "${hostcolor} h${gray}(${hostcolor}${USER}@${barehost}${gray})${reset}"
+    )
 
     # If we are in a directory that has a node_modules subdirectory we want to
     # display that on the info line
