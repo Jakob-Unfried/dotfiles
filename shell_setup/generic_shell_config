@@ -5,6 +5,18 @@
 source ~/.dotfiles/aliases
 
 
+# Editor and display configurations
+#-------------------------------------------------------------------------------
+export EDITOR='vim'
+export VISUAL='vim'
+export GIT_EDITOR=$EDITOR
+export LESS='-imJMWR'
+export PAGER="less $LESS"
+export MANPAGER=$PAGER
+export GIT_PAGER=$PAGER
+export BROWSER='chrome'
+
+
 # Check if the repo is behind
 #-------------------------------------------------------------------------------
 git -C "$HOME/.dotfiles" fetch
