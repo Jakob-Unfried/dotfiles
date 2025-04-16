@@ -4,6 +4,16 @@
 #-------------------------------------------------------------------------------
 source ~/.dotfiles/aliases
 
+
+# Check if the repo is behind
+#-------------------------------------------------------------------------------
+if git -C "$HOME/.dotfiles" status -sb | grep -Eq "behind"; then
+    echo
+    echo "\e[0;31m~/.dotfiles repo is behind upstream\e[0m"
+    echo
+fi
+
+
 # Setup conda
 #-------------------------------------------------------------------------------
 # >>> conda initialize >>>
