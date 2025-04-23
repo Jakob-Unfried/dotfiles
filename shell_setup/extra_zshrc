@@ -1,20 +1,5 @@
 #!/bin/zsh
 
-source ~/.dotfiles/shell_setup/generic_shell_config
-
-
-# zsh specific aliases
-#-------------------------------------------------------------------------------
-alias src='source ~/.zshrc'
-
-# Source the promt
-#-------------------------------------------------------------------------------
-if [[ ! -n "$ZSHRUN" ]]; then
-    source ~/.dotfiles/shell_setup/zsh_prompt > /dev/null 2>&1
-fi
-local -a precmd_functions
-precmd_functions=( precmd_prompt )
-
 
 # Allow VS Code (or others) to call a command during shell init
 #-------------------------------------------------------------------------------
@@ -34,10 +19,6 @@ bindkey '^K' clear-terminal
 
 # zsh options
 #-------------------------------------------------------------------------------
-# Prevents aliases on the command line from being internally substituted before
-# completion is attempted. The effect is to make the alias a distinct command
-# for completion purposes.
-setopt  complete_aliases
 # Treat the #, ~ and ^ characters as part of patterns for filename
 # generation, etc.  (An initial unquoted `~' always produces named directory
 # expansion.)
@@ -70,16 +51,35 @@ REPORTTIME=60       # Report time statistics for progs that take more than a min
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
 
+# Auto completion using arrow keys, based on history
+#-------------------------------------------------------------------------------
+bindkey '\e[A' history-search-backward
+bindkey '\e[B' history-search-forward
+
+
 # Tab completion
 #-------------------------------------------------------------------------------
-autoload -U compinit
+autoload -Uz compinit
 compinit -C
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' list-colors "$LS_COLORS"
 zstyle -e ':completion:*:(ssh|scp|sshfs|ping|telnet|nc|rsync):*' hosts '
     reply=( ${=${${(M)${(f)"$(<~/.ssh/config)"}:#Host*}#Host }:#*\**} )'
 
-# Auto completion using arrow keys, based on history
+
+# Source other files from the repo
 #-------------------------------------------------------------------------------
-bindkey '\e[A' history-search-backward
-bindkey '\e[B' history-search-forward
+source ~/.dotfiles/shell_setup/generic_shell_config
+
+
+# zsh specific aliases
+#-------------------------------------------------------------------------------
+alias src='source ~/.zshrc'
+
+# Source the promt
+#-------------------------------------------------------------------------------
+if [[ ! -n "$ZSHRUN" ]]; then
+    source ~/.dotfiles/shell_setup/zsh_prompt > /dev/null 2>&1
+fi
+local -a precmd_functions
+precmd_functions=( precmd_prompt )
