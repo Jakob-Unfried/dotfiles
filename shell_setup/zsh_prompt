@@ -14,6 +14,7 @@ for color in {000..255}; do
 done
 
 local reset white gray green red orange yellow blue cyan magenta black
+# color chart: https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 reset="%{${reset_color}%}"
 gray="%{$FG[245]%}"
 green="%{$FG[040]%}"
@@ -84,12 +85,15 @@ function +pr-mode-full() {
     infoline=( ${pr_com[pwd]} ${pr_com[usr]} )
 
     # Add the user and host
-    if [[ $HOST == *.local ]]; then
+    current_host=$(hostname)
+    if [[ $current_host == *.local ]]; then
+        hostcolor="${gray}"
+    elif [[ $current_host == *ddns.t30.ph.tum.de* ]]; then
         hostcolor="${gray}"
     else
         hostcolor="${orange}"
     fi
-    barehost="${${HOST}%.local}"
+    barehost="${${current_host}%.local}"
     infoline[1]=(
         ${infoline[1]}
         "${hostcolor} h${gray}(${hostcolor}${USER}@${barehost}${gray})${reset}"
