@@ -62,6 +62,7 @@ alias gcnv="git commit --verbose --no-verify"
 alias gb='git branch'
 alias gbd='git branch --delete'
 alias gbD='git branch --delete --force'
+alias gsw='git switch'
 alias gnb="git switch -c"
 alias gcp='git cherry-pick'
 # stash
