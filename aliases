@@ -107,11 +107,3 @@ alias lint="python -m flake8 && python tests/linting/python_linting.py -q"
 alias pdb="python -m pdb -c continue"
 alias ipdb="ipython --pdb"
 
-
-# -----------------------------------------------------
-# Dev environments
-# -----------------------------------------------------
-alias tpdev='conda activate tenpy312dev; cd ~/tenpy/development; gfs'
-alias cytendev='conda activate cyten312dev; cd ~/tenpy/cyten; gfs'
-alias qutepydev='conda activate qutepy312; cd ~/postdoc/QuTePy/qutepy, gfs'
-alias diffpepsdev='conda activate py312diffpeps; cd ~/postdoc/DiffPEPS/diffpeps; gfs'
