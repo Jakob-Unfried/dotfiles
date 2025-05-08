@@ -9,7 +9,9 @@ alias preview="open -a Preview"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias finder="open -a Finder"
 alias lock="open /System/Library/CoreServices/ScreenSaverEngine.app"
+alias ls="ls --color=auto"
 alias ll="ls -lah"
+alias grep="grep --color=auto"
 
 
 # -----------------------------------------------------
