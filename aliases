@@ -103,7 +103,22 @@ alias coa="conda activate"
 alias cod="conda deactivate"
 alias coi="conda install"
 alias coe="conda info --envs"
-alias lint="python -m flake8 && python tests/linting/python_linting.py -q"
 alias pdb="python -m pdb -c continue"
 alias ipdb="ipython --pdb"
 
+lint() {
+  python -m flake8
+  did_custom_linting=False
+  if [[ -f tests/linting/python_linting.py ]]; then
+    python tests/linting/python_linting.py
+    did_custom_linting=True
+  fi
+  if [[ -f tests/python_linting.py ]]; then
+    python tests/python_linting.py
+    did_custom_linting=True
+  fi
+  if $did_custom_linting; then
+  else
+    echo "No custom linting script found"
+  fi
+}
