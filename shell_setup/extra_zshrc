@@ -76,12 +76,3 @@ if [[ ! -n "$ZSHRUN" ]]; then
 fi
 local -a precmd_functions
 precmd_functions=( precmd_prompt )
-
-
-# Allow VS Code (or others) to call a command during shell init
-#-------------------------------------------------------------------------------
-# Since those commands might need the aliases, this block should be after sourcing aliases.
-if [[ -n $ZSH_INIT_COMMAND ]]; then
-    echo "Running: $ZSH_INIT_COMMAND"
-    eval "$ZSH_INIT_COMMAND"
-fi
