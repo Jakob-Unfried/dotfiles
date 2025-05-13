@@ -69,13 +69,12 @@ alias gswm='git switch main'
 alias gnb="git switch -c"
 alias gcp='git cherry-pick'
 # stash
-gstash () {
+alias gstashs='git stash push --staged'
+gstashu () {
   # stash all unstaged changes. extra args go to ``git stash push``.
-  curr_head=$(git rev-parse HEAD)
-  git commit -m "WIP" --no-verify --allow-empty -q
-  git stash push -u -q "$@"
-  git reset --soft "$curr_head"
-  gst
+  git stash push --staged
+  git stash push -u "$@"
+  git stash pop --index stash@{1}
 }
 alias gpop="git stash pop -q; gst"
 # logs
