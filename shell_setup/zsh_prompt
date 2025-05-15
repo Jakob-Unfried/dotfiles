@@ -13,10 +13,11 @@ for color in {000..255}; do
     BG[$color]="%{[48;5;${color}m%}"
 done
 
-local reset white gray green red orange yellow blue cyan magenta black
+local reset white gray lightgray green red orange yellow blue cyan magenta black
 # color chart: https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 reset="%{${reset_color}%}"
 gray="%{$FG[245]%}"
+lightgray="%{$FG[250]%}"
 green="%{$FG[040]%}"
 red="%{$FG[196]%}"
 orange="%{$FG[208]%}"
@@ -89,7 +90,7 @@ function +pr-mode-full() {
     if [[ $current_host == *.local ]]; then
         hostcolor="${gray}"
     elif [[ $current_host == *ddns.t30.ph.tum.de* ]]; then
-        hostcolor="${gray}"
+        hostcolor="${lightgray}"
     else
         hostcolor="${orange}"
     fi
