@@ -30,8 +30,8 @@ done
 for hash in $(git rev-list @{push}..@); do
   MESSAGE=$(git log -n 1 --pretty=format:%s "$hash")
   SHORTHASH=$(git log -n 1 --pretty=format:%h "$hash")
-  if echo $MESSAGE | ggrep -Eq "WIP|FIXME"; then
-    echo -e "\033[1;31mWIP/FIXME found in commit message of $SHORTHASH\033[0m"
+  if echo $MESSAGE | ggrep -Eq "WIP|FIXME|fixup"; then
+    echo -e "\033[1;31mWIP/FIXME/fixup found in commit message of $SHORTHASH\033[0m"
     STOP_PUSH=true
   fi
 done
