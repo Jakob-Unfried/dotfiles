@@ -71,6 +71,7 @@ alias gswm='git switch main'
 alias gnb="git switch -c"
 alias gcp='git cherry-pick'
 # stash
+alias gstash='git stash'
 alias gstashs='git stash push --staged'
 gstashu () {
   # stash all unstaged changes. extra args go to ``git stash push``.
