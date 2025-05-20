@@ -81,7 +81,7 @@ gstashu () {
 }
 alias gpop="git stash pop -q; gst"
 # logs
-alias gh="git hist"
+alias gh='git hist | nl -bp"\*" -w2 -s" " | less'
 alias glgg='git log --graph'
 alias glgga='git log --graph --decorate --all'
 alias glgm='git log --graph --max-count=10'
