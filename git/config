@@ -34,3 +34,6 @@
 [alias]
   hist = log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(blue)[%h]%C(reset) | %C(white)%s %C(dim white){{%an}}%C(reset) %C(auto)%+d%C(reset)' --graph --date=relative --color=always
   stashs = stash push --staged
+
+[mailmap]
+  file = ~/.dotfiles/git/mailmap
