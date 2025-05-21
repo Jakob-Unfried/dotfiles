@@ -1,7 +1,11 @@
+# Note: this file is versioncontrolled in the ~/.dotfiles repo
+#       put machine-specific config into ~/.dotfiles/git/local_config (which is gitignored)
+[include]
+  path = ~/.dotfiles/git/local_config
+
 [user]
   email = jakob.unfried@tum.de
   name = Jakob Unfried
-  signingkey = E5726847
 
 [github]
   user = Jakob-Unfried
