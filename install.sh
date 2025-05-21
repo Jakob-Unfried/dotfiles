@@ -13,6 +13,7 @@ fi
 mv ~/.gitconfig $TMPDIR/.gitconfig
 mv ~/.pdbrc $TMPDIR/.pdbrc
 mv ~/.condarc $TMPDIR/.condarc
+mv ~/.vimrc $TMPDIT/.vimrc
 echo "Moved old dotfiles to ~/$TMPDIR"
 
 # symlink dotfiles to the files in this repo
@@ -20,6 +21,7 @@ echo "Moved old dotfiles to ~/$TMPDIR"
 ln -sf ~/.dotfiles/git/config ~/.gitconfig
 ln -sf ~/.dotfiles/python/pdbrc ~/.pdbrc
 ln -sf ~/.dotfiles/python/condarc ~/.condarc
+ln -sf ~/.dotfiles/vim/vimrc ~/.vimrc
 
 # append to shell configs
 # -----------------------------------------------------
