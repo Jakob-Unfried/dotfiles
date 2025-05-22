@@ -34,6 +34,7 @@
 
 [advice]
   statusHints = false
+  skippedCherryPicks = false
 
 [alias]
   hist = log --pretty=format:'%C(auto,blue)%h%C(auto,reset) %C(auto,yellow)%<(12,trunc)%ad%C(auto,reset) %C(dim)|%C(reset) %C(auto,green)%<(10,trunc)%aN%C(auto,reset) %C(auto,white)%s%C(auto,reset) %C(auto)%+d%C(reset)' --date=relative --color=always
