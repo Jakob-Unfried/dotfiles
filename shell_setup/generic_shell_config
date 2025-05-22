@@ -3,7 +3,7 @@
 # Source more files from this repo
 #-------------------------------------------------------------------------------
 source ~/.dotfiles/aliases
-[[ ~/.dotfiles/local_aliases ]] && source ~/.dotfiles/local_aliases
+[[ -f ~/.dotfiles/local_aliases ]] && source ~/.dotfiles/local_aliases
 
 
 # Editor and display configurations
