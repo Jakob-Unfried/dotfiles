@@ -26,3 +26,10 @@ if git -C "$HOME/.dotfiles" status -sb | grep -Eq "behind"; then
     echo "\e[0;31m~/.dotfiles repo is behind upstream\e[0m"
     echo
 fi
+
+
+# Allow VSC etc to activate a conda env by setting VSC_CONDA
+#-------------------------------------------------------------------------------
+if [[ -n $VSC_CONDA ]]; then
+    conda activate "$VSC_CONDA"
+fi
