@@ -30,6 +30,8 @@ fi
 
 # Allow VSC etc to activate a conda env by setting VSC_CONDA
 #-------------------------------------------------------------------------------
+# e.g. put the following lines in vs code project settings::
+#   "terminal.integrated.env.osx": {"VSC_CONDA": "tenpy",},
 if [[ -n $VSC_CONDA ]]; then
     conda activate "$VSC_CONDA"
 fi
