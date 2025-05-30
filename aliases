@@ -112,6 +112,18 @@ alias pdb="python -m pdb -c continue"
 alias ipdb="ipython --pdb"
 
 lint() {
+  # change to repository root if in a git repo
+  curr_dir=$(pwd)
+  repo_root=$(git rev-parse --show-toplevel 2&>1)
+  if [[ $? == 0 ]]; then
+    did_cd=true
+    echo "Running linting from repo root $repo_root"
+    cd $repo_root
+  else
+    did_cd=false
+  fi
+  
+  # lint
   python -m flake8
   did_custom_linting=False
   if [[ -f tests/linting/python_linting.py ]]; then
@@ -125,5 +137,10 @@ lint() {
   if $did_custom_linting; then
   else
     echo "No custom linting script found"
+  fi
+  
+  # change back to pwd when cmd was run
+  if $did_cd; then
+    cd $curr_dir
   fi
 }
