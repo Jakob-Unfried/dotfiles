@@ -114,7 +114,7 @@ alias ipdb="ipython --pdb"
 lint() {
   # change to repository root if in a git repo
   curr_dir=$(pwd)
-  repo_root=$(git rev-parse --show-toplevel 2&>1)
+  repo_root=$(git rev-parse --show-toplevel 2>&1)
   if [[ $? == 0 ]]; then
     did_cd=true
     echo "Running linting from repo root $repo_root"
