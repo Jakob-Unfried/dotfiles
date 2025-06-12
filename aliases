@@ -18,7 +18,7 @@ alias grep="grep --color=auto"
 # Git
 # -----------------------------------------------------
 # jokes
-alias yeet='git push'
+alias yeet='git push -f --no-verify'
 alias yoink='git pull'
 # misc
 alias g='git'
