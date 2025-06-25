@@ -62,6 +62,8 @@ alias gca!='git commit --verbose --all --amend'
 alias gaac="git add --all; git commit --verbose"
 alias gaac!="git add --all; git commit --verbose --amend"
 alias gcnv="git commit --verbose --no-verify"
+alias gcatmp='git commit --all --no-verify -m "WIP"'
+alias gctmp='git commit --no-verify -m "WIP"'
 # branches
 alias gb='git branch'
 alias gbd='git branch --delete'
@@ -110,6 +112,16 @@ alias coi="conda install"
 alias coe="conda info --envs"
 alias pdb="python -m pdb -c continue"
 alias ipdb="ipython --pdb"
+
+nbrun () {
+  jupyter nbconvert --execute --inplace \
+    --ClearMetadataPreprocessor.enabled=True \
+    --ClearMetadataPreprocessor.clear_cell_metadata=True \
+    --ClearMetadataPreprocessor.clear_notebook_metadata=True \
+    --ClearOutputPreprocessor.remove_metadata_fields="{'execution'}" \
+    --NotebookClient.record_timing=False \
+    $@
+}
 
 lint() {
   # change to repository root if in a git repo
