@@ -31,6 +31,47 @@ alias g='git'
 gri() {
   git rebase -i "HEAD~$1"
 }
+# gcf : git commit-fixup
+gcf() {
+  if [ $# -eq 0 ]; then
+    git commit --fixup HEAD
+    git rebase -i --autosquash HEAD~2
+  elif [ $# -eq 1 ]; then
+    git commit --fixup HEAD~"$(($1 - 1))"
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  else
+    echo "Usage: gcf [COMMIT_NO]"
+    return 1
+  fi
+}
+# gcaf : git commit-all-fixup
+gcaf() {
+  if [ $# -eq 0 ]; then
+    git commit --all --fixup HEAD
+    git rebase -i --autosquash HEAD~2
+  elif [ $# -eq 1 ]; then
+    git commit --all --fixup HEAD~"$(($1 - 1))"
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  else
+    echo "Usage: gcf [COMMIT_NO]"
+    return 1
+  fi
+}
+# gaacf : git commit-all fixup
+gaacf() {
+  if [ $# -eq 0 ]; then
+    git add --all
+    git commit --fixup HEAD
+    git rebase -i --autosquash HEAD~2
+  elif [ $# -eq 1 ]; then
+    git add --all
+    git commit --fixup HEAD~"$(($1 - 1))"
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  else
+    echo "Usage: gcf [COMMIT_NO]"
+    return 1
+  fi
+}
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
