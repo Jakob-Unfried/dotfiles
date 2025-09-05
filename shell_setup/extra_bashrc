@@ -3,6 +3,6 @@
 source ~/.dotfiles/shell_setup/generic_shell_config
 
 
-# zsh specific aliases
+# bash specific aliases
 #-------------------------------------------------------------------------------
 alias src='source ~/.bash_profile'
