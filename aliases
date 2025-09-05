@@ -75,6 +75,7 @@ alias gbd='git branch --delete'
 alias gbD='git branch --delete --force'
 alias gsw='git switch'
 alias gswm='git switch main'
+alias gsw-='git switch -'
 alias gnb="git switch -c"
 alias gcp='git cherry-pick'
 # stash
