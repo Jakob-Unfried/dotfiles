@@ -22,6 +22,8 @@ ln -sf ~/.dotfiles/git/config ~/.gitconfig
 ln -sf ~/.dotfiles/python/pdbrc ~/.pdbrc
 ln -sf ~/.dotfiles/python/condarc ~/.condarc
 ln -sf ~/.dotfiles/vim/vimrc ~/.vimrc
+mkdir -p ~/Library/KeyBindings
+ln -sf ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 
 # append to shell configs
 # -----------------------------------------------------
