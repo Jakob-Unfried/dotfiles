@@ -125,6 +125,7 @@ gstashu () {
 }
 alias gpop="git stash pop -q; gst"
 # logs
+alias ghh='git hist | nl -bp"\|" -w2 -s" " | grep --color=always -E "WIP|fixup|FIXME|$" | less'
 alias glh='git hist | nl -bp"\|" -w2 -s" " | grep --color=always -E "WIP|fixup|FIXME|$" | less'
 alias glhg='git hist --graph | nl -bp"\*" -w2 -s" " | grep --color=always -E "WIP|fixup|FIXME|$" | less'
 alias glgg='git log --graph'
