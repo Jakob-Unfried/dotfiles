@@ -29,42 +29,39 @@ gri() {
 # gcf : git commit-fixup
 gcf() {
   if [ $# -eq 0 ]; then
-    git commit --fixup HEAD
+    git commit --fixup HEAD || return $?
     git rebase -i --autosquash HEAD~2
-  elif [ $# -eq 1 ]; then
-    git commit --fixup HEAD~"$(($1 - 1))"
-    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  elif [ "$1" -eq "-h" ]; then
+    echo "Usage: 'gcf [num_commits_back] {options}'"
   else
-    echo "Usage: gcf [COMMIT_NO]"
-    return 1
+    git commit --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
   fi
 }
 # gcaf : git commit-all-fixup
 gcaf() {
   if [ $# -eq 0 ]; then
-    git commit --all --fixup HEAD
+    git commit --all --fixup HEAD || return $?
     git rebase -i --autosquash HEAD~2
-  elif [ $# -eq 1 ]; then
-    git commit --all --fixup HEAD~"$(($1 - 1))"
-    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  elif [ "$1" -eq "-h" ]; then
+    echo "Usage: 'gcf [num_commits_back] {options}'"
   else
-    echo "Usage: gcf [COMMIT_NO]"
-    return 1
+    git commit --all --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
   fi
 }
 # gaacf : git commit-all fixup
 gaacf() {
   if [ $# -eq 0 ]; then
     git add --all
-    git commit --fixup HEAD
+    git commit --fixup HEAD || return $?
     git rebase -i --autosquash HEAD~2
-  elif [ $# -eq 1 ]; then
-    git add --all
-    git commit --fixup HEAD~"$(($1 - 1))"
-    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  elif [ "$1" -eq "-h" ]; then
+    echo "Usage: 'gcf [num_commits_back] {options}'"
   else
-    echo "Usage: gcf [COMMIT_NO]"
-    return 1
+    git add --all
+    git commit --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
   fi
 }
 alias grb='git rebase'
