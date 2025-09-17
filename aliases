@@ -88,7 +88,7 @@ alias gl='git pull'
 alias gp='git push'
 alias gpb='git push -u origin $(git branch --show-current)'
 alias gpd='git push --dry-run'
-# staging / commitng
+# staging / committing
 alias ga='git add'
 alias gaa='git add --all'
 alias gc='git commit --verbose'
@@ -136,7 +136,7 @@ alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias glo='git log --oneline --decorate'
 alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
-# status for all branches
+# gbst : status for all branches
 gbst () {
   git fetch
   git for-each-ref --format="%(refname:short) %(upstream:short)" refs/heads | \
