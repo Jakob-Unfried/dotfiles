@@ -138,6 +138,7 @@ alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
 # status for all branches
 gbst () {
+  git fetch
   git for-each-ref --format="%(refname:short) %(upstream:short)" refs/heads | \
   while read local remote
   do
