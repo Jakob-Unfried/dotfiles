@@ -136,6 +136,30 @@ alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias glo='git log --oneline --decorate'
 alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
+# status for all branches
+gbst () {
+  git for-each-ref --format="%(refname:short) %(upstream:short)" refs/heads | \
+  while read local remote
+  do
+      [ -z "$remote" ] && continue
+      git rev-list --left-right "${local}...${remote}" -- 2>/dev/null >/tmp/git_upstream_status_delta || continue
+      LEFT_AHEAD=$(grep -c '^<' /tmp/git_upstream_status_delta)
+      RIGHT_AHEAD=$(grep -c '^>' /tmp/git_upstream_status_delta)
+      if [ $LEFT_AHEAD -ne 0 ]; then
+        if [ $RIGHT_AHEAD -ne 0 ]; then
+          echo "$local [$remote $(tput setaf 2)+$LEFT_AHEAD$(tput sgr 0)/$(tput setaf 1)-$RIGHT_AHEAD$(tput sgr 0)]"
+        else
+          echo "$local [$remote $(tput setaf 2)+$LEFT_AHEAD$(tput sgr 0)]"
+        fi
+      else
+        if [ $RIGHT_AHEAD -ne 0 ]; then
+          echo "$local [$remote $(tput setaf 1)-$RIGHT_AHEAD$(tput sgr 0)]"
+        else
+          echo "$local [$remote ]"
+        fi
+      fi
+  done
+}
 
 
 # -----------------------------------------------------
