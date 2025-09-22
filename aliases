@@ -212,6 +212,7 @@ lint() {
     did_custom_linting=True
   fi
   if $did_custom_linting; then
+    echo "Custom linting done"
   else
     echo "No custom linting script found"
   fi
