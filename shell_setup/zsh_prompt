@@ -92,6 +92,9 @@ function +pr-mode-full() {
     elif [[ $current_host == *ddns.t30.ph.tum.de* ]]; then
         current_host="t30"
         hostcolor="${lightgray}"
+    elif [[ $current_host == *.fritz.box ]]; then
+        current_host="fritz.box"
+        hostcolor="${orange}"
     else
         hostcolor="${orange}"
     fi
