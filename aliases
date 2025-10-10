@@ -143,7 +143,10 @@ gbst () {
   git for-each-ref --format="%(refname:short) %(upstream:short)" refs/heads | \
   while read local remote
   do
-      [ -z "$remote" ] && continue
+      if [ -z "$remote" ]; then
+        echo "$local $(tput setaf 1)[no remote branch]$(tput sgr 0)"
+        continue
+      fi
       git rev-list --left-right "${local}...${remote}" -- 2>/dev/null >/tmp/git_upstream_status_delta || continue
       LEFT_AHEAD=$(grep -c '^<' /tmp/git_upstream_status_delta)
       RIGHT_AHEAD=$(grep -c '^>' /tmp/git_upstream_status_delta)
