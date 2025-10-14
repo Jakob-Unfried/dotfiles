@@ -112,6 +112,7 @@ alias gswm='git switch main'
 alias gsw-='git switch -'
 alias gnb="git switch -c"
 alias gcp='git cherry-pick'
+alias gco='git checkout'
 # stash
 alias gstash='git stash'
 alias gstashs='git stash push --staged'
