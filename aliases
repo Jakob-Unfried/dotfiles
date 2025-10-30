@@ -89,7 +89,7 @@ alias gp='git push'
 gpb () {
   curr_branch=$(git branch --show-current)
   [[ "$curr_branch" = "main" ]] && echo "Can not use gpb to push to main" && return
-  git push -u origin $curr_branch
+  git push -u origin $curr_branch "$@"
 }
 alias gpd='git push --dry-run'
 # staging / committing
