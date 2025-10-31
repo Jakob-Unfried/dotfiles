@@ -170,6 +170,8 @@ gbst () {
       fi
   done
 }
+# submodules
+alias gsu='git submodules update'
 
 
 # -----------------------------------------------------
