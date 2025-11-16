@@ -33,7 +33,7 @@ gcf() {
   if [ $# -eq 0 ]; then
     git commit --fixup HEAD || return $?
     git rebase -i --autosquash HEAD~2
-  elif [ "$1" -eq "-h" ]; then
+  elif [ "$1" = "-h" ]; then
     echo "Usage: 'gcf [num_commits_back] {options}'"
   else
     git commit --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
