@@ -40,13 +40,25 @@ gcf() {
     git rebase -i --autosquash HEAD~"$(($1 + 1))"
   fi
 }
+# gcnvf : git commit(no-verify)-fixup
+gcnvf() {
+  if [ $# -eq 0 ]; then
+    git commit --fixup HEAD || return $?
+    git rebase -i --autosquash HEAD~2
+  elif [ "$1" = "-h" ]; then
+    echo "Usage: 'gcnvf [num_commits_back] {options}'"
+  else
+    git commit --no-verify --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
+    git rebase -i --autosquash HEAD~"$(($1 + 1))"
+  fi
+}
 # gcaf : git commit-all-fixup
 gcaf() {
   if [ $# -eq 0 ]; then
     git commit --all --fixup HEAD || return $?
     git rebase -i --autosquash HEAD~2
   elif [ "$1" -eq "-h" ]; then
-    echo "Usage: 'gcf [num_commits_back] {options}'"
+    echo "Usage: 'gcaf [num_commits_back] {options}'"
   else
     git commit --all --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
     git rebase -i --autosquash HEAD~"$(($1 + 1))"
@@ -59,7 +71,7 @@ gaacf() {
     git commit --fixup HEAD || return $?
     git rebase -i --autosquash HEAD~2
   elif [ "$1" -eq "-h" ]; then
-    echo "Usage: 'gcf [num_commits_back] {options}'"
+    echo "Usage: 'gaacf [num_commits_back] {options}'"
   else
     git add --all
     git commit --fixup HEAD~"$(($1 - 1))" "${@:2}" || return $?
